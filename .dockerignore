@@ -1,0 +1,34 @@
+# Git
+.git
+.gitignore
+
+# Python & Virtual Environments
+.venv
+venv
+env
+ENV
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+
+# Testing & Coverage
+.pytest_cache
+.coverage
+.coverage.*
+coverage.xml
+htmlcov
+
+# IDEs
+.idea
+.vscode
+
+# Local configuration & secrets
+.env
+.env.local
+
+# Documentation & sample projects
+sample_projects
+task
+README.md
+*.log
