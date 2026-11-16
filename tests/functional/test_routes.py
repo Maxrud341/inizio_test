@@ -24,8 +24,9 @@ MOCK_RESULTS = [
 
 @pytest.fixture
 def app():
-    app = create_app("development")
+    app = create_app("testing")
     app.config["TESTING"] = True
+    app.config["SERPAPI_KEY"] = "test-mock-api-key"
     return app
 
 
@@ -59,6 +60,12 @@ class TestSearchRoute:
     def test_missing_query_returns_400(self, client):
         r = client.post("/api/search", json={})
         assert r.status_code == 400
+
+    def test_missing_api_key_returns_500(self, app, client):
+        app.config["SERPAPI_KEY"] = ""
+        r = client.post("/api/search", json={"query": "seo nastroje"})
+        assert r.status_code == 500
+        assert "SERPAPI_KEY is not configured" in r.get_json()["error"]
 
     @patch("app.routes.main.search", return_value=MOCK_RESULTS)
     def test_valid_query_returns_200(self, mock_search, client):
