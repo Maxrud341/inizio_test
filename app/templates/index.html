@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Google Vyhledávač</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" />
+  <style>
+    body { background-color: #f8f9fa; }
+    .hero { padding: 4rem 0 2rem; }
+    #results-section { display: none; }
+    .table th { font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; color: #6c757d; }
+    .result-title a { font-weight: 500; text-decoration: none; }
+    .result-title a:hover { text-decoration: underline; }
+    .result-url  { font-size: .78rem; color: #198754; }
+    .result-snippet { font-size: .85rem; color: #495057; }
+    .badge-rank { width: 2rem; }
+  </style>
+</head>
+<body>
+
+<!-- ───────── NAVBAR ───────── -->
+<nav class="navbar navbar-light bg-white border-bottom">
+  <div class="container">
+    <a href="/" class="navbar-brand fw-semibold text-dark text-decoration-none">
+      <i class="bi bi-search text-primary me-1"></i>Google Vyhledávač
+    </a>
+  </div>
+</nav>
+
+<!-- ───────── HERO / SEARCH ───────── -->
+<div class="hero">
+  <div class="container" style="max-width: 680px;">
+    <h1 class="h4 fw-semibold text-center mb-1">Organická výsledky Google</h1>
+    <p class="text-center text-muted small mb-4">Zadejte klíčové slovní spojení a získejte výsledky z první stránky Google.</p>
+
+    <form id="search-form" autocomplete="off">
+      <div class="input-group input-group-lg shadow-sm">
+        <input
+          id="query-input"
+          type="text"
+          class="form-control"
+          placeholder="např. seo nástroje, python kurz..."
+          required
+        />
+        <button class="btn btn-primary px-4" type="submit">
+          <span id="btn-text">Hledat</span>
+          <span id="btn-spinner" class="spinner-border spinner-border-sm ms-1 d-none" role="status"></span>
+        </button>
+      </div>
+      <div id="error-msg" class="alert alert-danger mt-3 py-2 d-none" role="alert"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ───────── RESULTS ───────── -->
+<div id="results-section" class="container mb-5" style="max-width: 860px;">
+
+  <!-- header row -->
+  <div class="d-flex align-items-center justify-content-between mb-3">
+    <div>
+      <span class="fw-semibold" id="results-query"></span>
+      <span class="text-muted small ms-2" id="results-count"></span>
+    </div>
+    <div class="d-flex gap-2">
+      <button id="btn-export-json" class="btn btn-sm btn-outline-secondary">
+        <i class="bi bi-filetype-json me-1"></i>JSON
+      </button>
+      <button id="btn-export-csv" class="btn btn-sm btn-outline-secondary">
+        <i class="bi bi-filetype-csv me-1"></i>CSV
+      </button>
+    </div>
+  </div>
+
+  <!-- table -->
+  <div class="card shadow-sm">
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-light">
+          <tr>
+            <th class="text-center ps-3">#</th>
+            <th>Výsledek</th>
+          </tr>
+        </thead>
+        <tbody id="results-body"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let lastResults = [];
+  let lastQuery   = "";
+
+  const form        = document.getElementById("search-form");
+  const input       = document.getElementById("query-input");
+  const btnText     = document.getElementById("btn-text");
+  const btnSpinner  = document.getElementById("btn-spinner");
+  const errorMsg    = document.getElementById("error-msg");
+  const section     = document.getElementById("results-section");
+  const tbody       = document.getElementById("results-body");
+  const resQuery    = document.getElementById("results-query");
+  const resCount    = document.getElementById("results-count");
+
+  // ── Search ──────────────────────────────────────────────────────
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const query = input.value.trim();
+    if (!query) return;
+
+    setLoading(true);
+    errorMsg.classList.add("d-none");
+    section.style.display = "none";
+
+    try {
+      const resp = await fetch("/api/search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+      const data = await resp.json();
+
+      if (!resp.ok) throw new Error(data.error || "Chyba serveru");
+
+      lastResults = data.results;
+      lastQuery   = data.query;
+      renderResults(data);
+    } catch (err) {
+      showError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  });
+
+  // ── Render results ───────────────────────────────────────────────
+  function renderResults(data) {
+    tbody.innerHTML = data.results.map(r => `
+      <tr>
+        <td class="text-center ps-3">
+          <span class="badge bg-primary badge-rank">${r.rank}</span>
+        </td>
+        <td class="py-3">
+          <div class="result-title">
+            <a href="${escHtml(r.url)}" target="_blank" rel="noopener">
+              ${escHtml(r.title)}
+            </a>
+          </div>
+          <div class="result-url">${escHtml(r.displayed_url || r.url)}</div>
+          <div class="result-snippet mt-1">${escHtml(r.snippet)}</div>
+        </td>
+      </tr>
+    `).join("");
+
+    resQuery.textContent = `„${data.query}"`;
+    resCount.textContent = `${data.count} výsledků`;
+    section.style.display = "block";
+    section.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  // ── Export ───────────────────────────────────────────────────────
+  async function exportResults(format) {
+    if (!lastResults.length) return;
+    try {
+      const resp = await fetch("/api/export", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: lastQuery, format, results: lastResults }),
+      });
+      if (!resp.ok) throw new Error("Export selhal");
+
+      const blob = await resp.blob();
+      const url  = URL.createObjectURL(blob);
+      const a    = document.createElement("a");
+      a.href     = url;
+      a.download = `serp_${lastQuery.replace(/\s+/g, "_")}.${format}`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      showError(err.message);
+    }
+  }
+
+  document.getElementById("btn-export-json").addEventListener("click", () => exportResults("json"));
+  document.getElementById("btn-export-csv").addEventListener("click",  () => exportResults("csv"));
+
+  // ── Helpers ──────────────────────────────────────────────────────
+  function setLoading(on) {
+    input.disabled       = on;
+    btnText.textContent  = on ? "Hledám…" : "Hledat";
+    btnSpinner.classList.toggle("d-none", !on);
+  }
+
+  function showError(msg) {
+    errorMsg.textContent = msg;
+    errorMsg.classList.remove("d-none");
+  }
+
+  function escHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+</script>
+</body>
+</html>
