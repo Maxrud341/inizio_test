@@ -1,0 +1,141 @@
+{
+  "search_metadata": {
+    "id": "test_fixture_001",
+    "status": "Success",
+    "created_at": "2024-01-01T12:00:00Z",
+    "request_time_taken": 1.23,
+    "total_time_taken": 2.34,
+    "engine_url": "https://www.google.cz/search?q=seo+nastroje&hl=cs&gl=cz&num=10",
+    "google_url": "https://www.google.cz/search?q=seo+nastroje&hl=cs&gl=cz&num=10",
+    "raw_html_file": null,
+    "prettify_html_file": null
+  },
+  "search_parameters": {
+    "engine": "google",
+    "q": "seo nastroje",
+    "gl": "cz",
+    "hl": "cs",
+    "num": "10",
+    "device": "desktop"
+  },
+  "search_information": {
+    "query_displayed": "seo nastroje",
+    "total_results": 1200000,
+    "time_taken_displayed": 0.42,
+    "organic_results_state": "Results for exact spelling"
+  },
+  "ads": [
+    {
+      "position": 1,
+      "block_position": "top",
+      "title": "Nejlepší SEO Nástroje - Vyzkoušejte Zdarma",
+      "link": "https://www.example-ad.cz/seo-nastroje",
+      "displayed_link": "https://www.example-ad.cz",
+      "snippet": "Reklama: Kompletní SEO audit vašeho webu za 30 sekund. Vyzkoušejte nyní.",
+      "tracking_link": "https://www.googleadservices.com/pagead/aclk?sa=L&ai=test",
+      "type": "text_ad"
+    }
+  ],
+  "organic_results": [
+    {
+      "position": 1,
+      "title": "Collabim — SEO nástroj pro správu a sledování klíčových slov",
+      "link": "https://www.collabim.cz",
+      "displayed_link": "www.collabim.cz",
+      "snippet": "Collabim je kompletní SEO nástroj pro sledování pozic klíčových slov, analýzu odkazů a monitoring konkurence. Vyzkoušejte zdarma.",
+      "sitelinks": {
+        "inline": [
+          {"title": "Ceník", "link": "https://www.collabim.cz/cenik"},
+          {"title": "Funkce", "link": "https://www.collabim.cz/funkce"}
+        ]
+      },
+      "rich_snippet": null
+    },
+    {
+      "position": 2,
+      "title": "Marketing Miner — SEO data mining tool",
+      "link": "https://www.marketingminer.com/cs",
+      "displayed_link": "www.marketingminer.com › cs",
+      "snippet": "Marketing Miner je SEO nástroj pro komplexní analýzu dat. Sbírejte data z Google, Seznam, Majestic a dalších zdrojů na jednom místě.",
+      "rich_snippet": {
+        "top": {
+          "detected_extensions": {"rating": 4.7, "reviews": 312}
+        }
+      }
+    },
+    {
+      "position": 3,
+      "title": "Semrush — profesionální SEO nástroj pro váš web",
+      "link": "https://cs.semrush.com",
+      "displayed_link": "cs.semrush.com",
+      "snippet": "SEMrush je komplexní online marketingová platforma. Analyzujte SEO, PPC, sociální sítě a content marketing vaší konkurence.",
+      "rich_snippet": null
+    },
+    {
+      "position": 4,
+      "title": "Ahrefs — SEO nástroj pro analýzu zpětných odkazů",
+      "link": "https://ahrefs.com/cs",
+      "displayed_link": "ahrefs.com › cs",
+      "snippet": "Ahrefs patří mezi nejpoužívanější SEO nástroje na světě. Analyzujte zpětné odkazy, klíčová slova a sledujte pozice ve vyhledávačích.",
+      "rich_snippet": null
+    },
+    {
+      "position": 5,
+      "title": "10 nejlepších SEO nástrojů v roce 2024 | Zdroj.cz",
+      "link": "https://www.zdroj.cz/seo/nejlepsi-seo-nastroje",
+      "displayed_link": "www.zdroj.cz › seo › nejlepsi-seo-nastroje",
+      "snippet": "Přehled nejlepších SEO nástrojů, které pomáhají profesionálům i začátečníkům. Collabim, Semrush, Ahrefs, Moz a další.",
+      "rich_snippet": null
+    },
+    {
+      "position": 6,
+      "title": "Moz Pro — SEO Software, Tools, & Resources",
+      "link": "https://moz.com",
+      "displayed_link": "moz.com",
+      "snippet": "Moz Pro provides complete SEO tools to help you rank higher in search engines. Keyword research, link building, site audits, and more.",
+      "rich_snippet": null
+    },
+    {
+      "position": 7,
+      "title": "Google Search Console — sledujte výkonnost svého webu",
+      "link": "https://search.google.com/search-console",
+      "displayed_link": "search.google.com › search-console",
+      "snippet": "Search Console vám pomáhá měřit výkonnost webu ve Vyhledávání Google, opravovat problémy a zvyšovat efektivitu stránek.",
+      "rich_snippet": null
+    },
+    {
+      "position": 8,
+      "title": "Screaming Frog SEO Spider",
+      "link": "https://www.screamingfrog.co.uk/seo-spider/",
+      "displayed_link": "www.screamingfrog.co.uk › seo-spider",
+      "snippet": "Download our free SEO spider tool, used by thousands of SEOs and digital marketers to crawl websites for broken links, errors, metadata and more.",
+      "rich_snippet": null
+    },
+    {
+      "position": 9,
+      "title": "Ubersuggest — SEO klíčová slova a analýza webu",
+      "link": "https://neilpatel.com/ubersuggest/",
+      "displayed_link": "neilpatel.com › ubersuggest",
+      "snippet": "Ubersuggest je bezplatný SEO nástroj pro výzkum klíčových slov, analýzu konkurence a sledování pozic ve vyhledávačích.",
+      "rich_snippet": null
+    },
+    {
+      "position": 10,
+      "title": "Seznam.cz Full-text — bezplatný SEO nástroj",
+      "link": "https://fulltext.seznam.cz",
+      "displayed_link": "fulltext.seznam.cz",
+      "snippet": "Bezplatný nástroj pro analýzu indexace a viditelnosti webu v Seznamu.",
+      "rich_snippet": null
+    }
+  ],
+  "related_searches": [
+    {"query": "seo nástroje zdarma"},
+    {"query": "nejlepší seo nástroje 2024"},
+    {"query": "seo analýza webu"}
+  ],
+  "pagination": {
+    "current": 1,
+    "next": "https://www.google.cz/search?q=seo+nastroje&hl=cs&gl=cz&num=10&start=10",
+    "other_pages": {"2": "...", "3": "..."}
+  }
+}
