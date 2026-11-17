@@ -53,6 +53,8 @@ def api_search():
             api_key=api_key,
             hl=current_app.config["SEARCH_HL"],
             gl=current_app.config["SEARCH_GL"],
+            google_domain=current_app.config.get("SEARCH_GOOGLE_DOMAIN", "google.cz"),
+            location=current_app.config.get("SEARCH_LOCATION", "Czechia"),
             num=current_app.config["SEARCH_NUM"],
         )
     except Exception as exc:
