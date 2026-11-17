@@ -58,21 +58,17 @@ def search(
     api_key: str,
     hl: str = "cs",
     gl: str = "cz",
-    google_domain: str = "google.cz",
-    location: str | None = "Czechia",
     num: int = 10,
 ) -> list[SerpItem]:
     """
     Fetch organic Google search results for query via SerpApi.
 
     Args:
-        query:         Search keyword / phrase.
-        api_key:       SerpApi private API key.
-        hl:            Language code (default: 'cs' for Czech).
-        gl:            Country code (default: 'cz' for Czech Republic).
-        google_domain: Google engine domain (default: 'google.cz').
-        location:      Canonical geographic location (default: 'Czechia').
-        num:           Number of results to request (default: 10).
+        query:   Search keyword / phrase.
+        api_key: SerpApi private API key.
+        hl:      Language code (default: 'cs' for Czech).
+        gl:      Country code (default: 'cz' for Czech Republic).
+        num:     Number of results to request (default: 10).
 
     Returns:
         List of SerpItem representing organic results.
@@ -86,11 +82,8 @@ def search(
         "q": query,
         "hl": hl,
         "gl": gl,
-        "google_domain": google_domain,
         "num": num,
     }
-    if location:
-        params["location"] = location
 
     raw = client.search(params)
     return parse_organic_results(dict(raw))
