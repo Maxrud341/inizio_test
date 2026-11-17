@@ -77,3 +77,8 @@ temp/
 # Reference sample projects
 sample_projects/
 
+# Archives & Generated documents
+*.zip
+*.pdf
+
+
