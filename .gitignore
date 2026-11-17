@@ -73,3 +73,7 @@ desktop.ini
 # Output / Export test files generated during testing
 *.tmp
 temp/
+
+# Reference sample projects
+sample_projects/
+
