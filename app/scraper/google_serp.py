@@ -53,7 +53,13 @@ def parse_organic_results(raw: dict) -> list[SerpItem]:
     return results
 
 
-def search(query: str, api_key: str, hl: str = "cs", gl: str = "cz", num: int = 10) -> list[SerpItem]:
+def search(
+    query: str,
+    api_key: str,
+    hl: str = "cs",
+    gl: str = "cz",
+    num: int = 10,
+) -> list[SerpItem]:
     """
     Fetch organic Google search results for query via SerpApi.
 
@@ -71,11 +77,13 @@ def search(query: str, api_key: str, hl: str = "cs", gl: str = "cz", num: int = 
         Exception: Propagates SerpApi errors (invalid key, quota exceeded, etc.)
     """
     client = serpapi.Client(api_key=api_key)
-    raw = client.search({
+    params = {
         "engine": "google",
         "q": query,
         "hl": hl,
         "gl": gl,
         "num": num,
-    })
+    }
+
+    raw = client.search(params)
     return parse_organic_results(dict(raw))
